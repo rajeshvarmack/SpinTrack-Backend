@@ -1,0 +1,29 @@
+using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
+using SpinTrack.Application.Features.Auth.Interfaces;
+using SpinTrack.Application.Features.Users.Interfaces;
+using SpinTrack.Application.Services;
+using System.Reflection;
+
+namespace SpinTrack.Application
+{
+    /// <summary>
+    /// Dependency injection configuration for Application layer
+    /// </summary>
+    public static class DependencyInjection
+    {
+        public static IServiceCollection AddApplication(this IServiceCollection services)
+        {
+            // Register FluentValidation validators
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+            // Register Application Services (Business Logic)
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserQueryService, UserQueryService>();
+            services.AddScoped<IUserProfileService, UserProfileService>();
+
+            return services;
+        }
+    }
+}

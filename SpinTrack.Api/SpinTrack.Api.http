@@ -1,0 +1,412 @@
+@SpinTrack.Api_HostAddress = https://localhost:7001
+
+### Register User - API v1.0
+POST {{SpinTrack.Api_HostAddress}}/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "email": "john.doe@example.com",
+  "password": "StrongPass123!",
+  "confirmPassword": "StrongPass123!",
+  "firstName": "John",
+  "middleName": "Michael",
+  "lastName": "Doe",
+  "phoneNumber": "+1234567890",
+  "nationalId": "123456789",
+  "gender": "Male",
+  "dateOfBirth": "1990-01-15",
+  "nationality": "USA",
+  "jobTitle": "Software Engineer"
+}
+
+### Login - API v1.0
+POST {{SpinTrack.Api_HostAddress}}/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "password": "StrongPass123!"
+}
+
+### Refresh Token - API v1.0
+POST {{SpinTrack.Api_HostAddress}}/api/v1/auth/refresh-token
+Content-Type: application/json
+
+{
+  "refreshToken": "your-refresh-token-here"
+}
+
+### Revoke Token (Logout) - API v1.0
+POST {{SpinTrack.Api_HostAddress}}/api/v1/auth/revoke-token
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "refreshToken": "your-refresh-token-here"
+}
+
+### Change Password - API v1.0
+POST {{SpinTrack.Api_HostAddress}}/api/v1/auth/change-password
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "currentPassword": "StrongPass123!",
+  "newPassword": "NewStrongPass123!",
+  "confirmPassword": "NewStrongPass123!"
+}
+
+### Query Users with Pagination and Filtering - API v1.0
+POST {{SpinTrack.Api_HostAddress}}/api/v1/users/query
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "pageNumber": 1,
+  "pageSize": 10,
+  "searchTerm": "john",
+  "filters": [
+    {
+      "columnName": "Status",
+      "operator": "Equals",
+      "value": "Active"
+    },
+    {
+      "columnName": "Gender",
+      "operator": "Equals",
+      "value": "Male"
+    }
+  ],
+  "sortColumns": [
+    {
+      "columnName": "FirstName",
+      "direction": "Ascending"
+    },
+    {
+      "columnName": "CreatedAt",
+      "direction": "Descending"
+    }
+  ]
+}
+
+### Get User by ID - API v1.0
+GET {{SpinTrack.Api_HostAddress}}/api/v1/users/3fa85f64-5717-4562-b3fc-2c963f66afa6
+Authorization: Bearer your-access-token-here
+
+### Create User - API v1.0
+POST {{SpinTrack.Api_HostAddress}}/api/v1/users
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "username": "janedoe",
+  "email": "jane.doe@example.com",
+  "password": "StrongPass123!",
+  "confirmPassword": "StrongPass123!",
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "phoneNumber": "+1234567891",
+  "gender": "Female",
+  "dateOfBirth": "1992-05-20",
+  "nationality": "USA",
+  "jobTitle": "Product Manager"
+}
+
+### Update User - API v1.0
+PUT {{SpinTrack.Api_HostAddress}}/api/v1/users/3fa85f64-5717-4562-b3fc-2c963f66afa6
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "email": "john.updated@example.com",
+  "firstName": "John",
+  "middleName": "Michael",
+  "lastName": "Doe",
+  "phoneNumber": "+1234567890",
+  "nationalId": "123456789",
+  "gender": "Male",
+  "dateOfBirth": "1990-01-15",
+  "nationality": "USA",
+  "jobTitle": "Senior Software Engineer"
+}
+
+### Delete User - API v1.0
+DELETE {{SpinTrack.Api_HostAddress}}/api/v1/users/3fa85f64-5717-4562-b3fc-2c963f66afa6
+Authorization: Bearer your-access-token-here
+
+### Change User Status - API v1.0
+PATCH {{SpinTrack.Api_HostAddress}}/api/v1/users/3fa85f64-5717-4562-b3fc-2c963f66afa6/status
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "status": "Suspended"
+}
+
+### Export Users to CSV - API v1.0
+POST {{SpinTrack.Api_HostAddress}}/api/v1/users/export
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "pageNumber": 1,
+  "pageSize": 100,
+  "exportFormat": "Csv",
+  "exportAll": true,
+  "searchTerm": "",
+  "filters": [
+    {
+      "columnName": "Status",
+      "operator": "Equals",
+      "value": "Active"
+    }
+  ],
+  "sortColumns": [
+    {
+      "columnName": "FirstName",
+      "direction": "Ascending"
+    }
+  ]
+}
+
+### ====================================================================================
+### Advanced Filtering Examples - NEW OPERATORS
+### ====================================================================================
+
+### Filter with NotContains (String)
+POST {{SpinTrack.Api_HostAddress}}/api/v1/users/query
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "pageNumber": 1,
+  "pageSize": 10,
+  "filters": [
+    {
+      "columnName": "Email",
+      "operator": "NotContains",
+      "value": "gmail.com"
+    }
+  ]
+}
+
+### Filter with IsEmpty (String)
+POST {{SpinTrack.Api_HostAddress}}/api/v1/users/query
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "pageNumber": 1,
+  "pageSize": 10,
+  "filters": [
+    {
+      "columnName": "MiddleName",
+      "operator": "IsEmpty"
+    }
+  ]
+}
+
+### Filter with IsNotEmpty (String)
+POST {{SpinTrack.Api_HostAddress}}/api/v1/users/query
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "pageNumber": 1,
+  "pageSize": 10,
+  "filters": [
+    {
+      "columnName": "PhoneNumber",
+      "operator": "IsNotEmpty"
+    }
+  ]
+}
+
+### Filter with Between (Date Range)
+POST {{SpinTrack.Api_HostAddress}}/api/v1/users/query
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "pageNumber": 1,
+  "pageSize": 10,
+  "filters": [
+    {
+      "columnName": "DateOfBirth",
+      "operator": "Between",
+      "value": "1990-01-01",
+      "valueTo": "1999-12-31"
+    }
+  ]
+}
+
+### Filter with Between (CreatedAt Date Range)
+POST {{SpinTrack.Api_HostAddress}}/api/v1/users/query
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "pageNumber": 1,
+  "pageSize": 10,
+  "filters": [
+    {
+      "columnName": "CreatedAt",
+      "operator": "Between",
+      "value": "2024-01-01T00:00:00",
+      "valueTo": "2024-12-31T23:59:59"
+    }
+  ]
+}
+
+### ====================================================================================
+### Complex Filtering Examples
+### ====================================================================================
+
+### Multiple Filters with New Operators
+POST {{SpinTrack.Api_HostAddress}}/api/v1/users/query
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "pageNumber": 1,
+  "pageSize": 10,
+  "filters": [
+    {
+      "columnName": "Status",
+      "operator": "Equals",
+      "value": "Active"
+    },
+    {
+      "columnName": "Email",
+      "operator": "NotContains",
+      "value": "test"
+    },
+    {
+      "columnName": "PhoneNumber",
+      "operator": "IsNotEmpty"
+    },
+    {
+      "columnName": "DateOfBirth",
+      "operator": "Between",
+      "value": "1985-01-01",
+      "valueTo": "1995-12-31"
+    }
+  ],
+  "sortColumns": [
+    {
+      "columnName": "FirstName",
+      "direction": "Ascending"
+    }
+  ]
+}
+
+### Search with NotContains Filter
+POST {{SpinTrack.Api_HostAddress}}/api/v1/users/query
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "pageNumber": 1,
+  "pageSize": 10,
+  "searchTerm": "engineer",
+  "filters": [
+    {
+      "columnName": "Email",
+      "operator": "NotContains",
+      "value": "temp"
+    }
+  ]
+}
+
+### ====================================================================================
+### Original Advanced Filtering Examples
+### ====================================================================================
+
+### Filter by Date Range (using GreaterThan and LessThan)
+POST {{SpinTrack.Api_HostAddress}}/api/v1/users/query
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "pageNumber": 1,
+  "pageSize": 10,
+  "filters": [
+    {
+      "columnName": "DateOfBirth",
+      "operator": "GreaterThanOrEqual",
+      "value": "1990-01-01"
+    },
+    {
+      "columnName": "DateOfBirth",
+      "operator": "LessThan",
+      "value": "2000-01-01"
+    }
+  ]
+}
+
+### Filter with Contains
+POST {{SpinTrack.Api_HostAddress}}/api/v1/users/query
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "pageNumber": 1,
+  "pageSize": 10,
+  "filters": [
+    {
+      "columnName": "Email",
+      "operator": "Contains",
+      "value": "@example.com"
+    }
+  ]
+}
+
+### Filter with In Operator
+POST {{SpinTrack.Api_HostAddress}}/api/v1/users/query
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "pageNumber": 1,
+  "pageSize": 10,
+  "filters": [
+    {
+      "columnName": "Status",
+      "operator": "In",
+      "values": ["Active", "Pending"]
+    }
+  ]
+}
+
+### Filter with IsNull
+POST {{SpinTrack.Api_HostAddress}}/api/v1/users/query
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "pageNumber": 1,
+  "pageSize": 10,
+  "filters": [
+    {
+      "columnName": "MiddleName",
+      "operator": "IsNull"
+    }
+  ]
+}
+
+### Filter with IsNotNull
+POST {{SpinTrack.Api_HostAddress}}/api/v1/users/query
+Content-Type: application/json
+Authorization: Bearer your-access-token-here
+
+{
+  "pageNumber": 1,
+  "pageSize": 10,
+  "filters": [
+    {
+      "columnName": "JobTitle",
+      "operator": "IsNotNull"
+    }
+  ]
+}
