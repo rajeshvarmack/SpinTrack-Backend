@@ -17,6 +17,7 @@ using SpinTrack.Application.Features.DateFormats.Interfaces;
 using SpinTrack.Application.Features.Companies.Interfaces;
 using SpinTrack.Application.Features.BusinessDays.Interfaces;
 using SpinTrack.Application.Features.BusinessHours.Interfaces;
+using SpinTrack.Application.Features.BusinessHolidays.Interfaces;
 using SpinTrack.Infrastructure.Authentication;
 using SpinTrack.Infrastructure.Repositories;
 using SpinTrack.Infrastructure.Services;
@@ -56,6 +57,7 @@ namespace SpinTrack.Infrastructure
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IBusinessDayRepository, BusinessDayRepository>();
             services.AddScoped<IBusinessHoursRepository, BusinessHoursRepository>();
+            services.AddScoped<IBusinessHolidayRepository, BusinessHolidayRepository>();
 
             // Infrastructure Services (technical implementations only)
             services.AddScoped<IJwtTokenService, JwtTokenService>();

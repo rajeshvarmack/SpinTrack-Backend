@@ -13,6 +13,7 @@ using SpinTrack.Core.Entities.DateFormat;
 using SpinTrack.Core.Entities.Company;
 using SpinTrack.Core.Entities.BusinessDay;
 using SpinTrack.Core.Entities.BusinessHours;
+using SpinTrack.Core.Entities.BusinessHoliday;
 
 namespace SpinTrack.Infrastructure
 {
@@ -21,12 +22,12 @@ namespace SpinTrack.Infrastructure
     /// </summary>
     public class SpinTrackDbContext : DbContext
     {
-        private readonly ICurrentUserService? _currentUserService;
+        private readonly ICurrentUserService? _currentUser_service;
 
         public SpinTrackDbContext(DbContextOptions<SpinTrackDbContext> options, ICurrentUserService? currentUserService = null)
             : base(options)
         {
-            _currentUserService = currentUserService;
+            _currentUser_service = currentUserService;
         }
 
         public DbSet<User> Users => Set<User>();
@@ -42,6 +43,7 @@ namespace SpinTrack.Infrastructure
         public DbSet<Company> Companies => Set<Company>();
         public DbSet<BusinessDay> BusinessDays => Set<BusinessDay>();
         public DbSet<BusinessHour> BusinessHours => Set<BusinessHour>();
+        public DbSet<BusinessHoliday> BusinessHolidays => Set<BusinessHoliday>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -66,7 +68,7 @@ namespace SpinTrack.Infrastructure
         private void UpdateAuditFields()
         {
             var entries = ChangeTracker.Entries<BaseEntity>();
-            var currentUserId = _currentUserService?.UserId ?? Guid.Empty;
+            var currentUserId = _currentUser_service?.UserId ?? Guid.Empty;
             var currentTime = DateTimeOffset.UtcNow;
 
             foreach (var entry in entries)
