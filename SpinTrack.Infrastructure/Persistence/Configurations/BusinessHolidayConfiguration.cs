@@ -35,6 +35,15 @@ namespace SpinTrack.Infrastructure.Persistence.Configurations
             builder.HasIndex(bh => bh.IsDeleted);
 
             builder.HasQueryFilter(bh => !bh.IsDeleted);
+
+            // Foreign Key to Country (optional)
+            builder.HasOne(bh => bh.Country)
+                .WithMany()
+                .HasForeignKey(bh => bh.CountryId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false);
+
+            // Foreign Key to Company configured from Company side
         }
     }
 }

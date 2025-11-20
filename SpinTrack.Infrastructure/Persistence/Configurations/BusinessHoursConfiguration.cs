@@ -8,7 +8,7 @@ namespace SpinTrack.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<BusinessHour> builder)
         {
-            builder.ToTable("BusinessHours", "master");
+            builder.ToTable("BusinessHours", "master", tb => tb.HasCheckConstraint("CHK_BusinessHours_Time", "[EndTime] > [StartTime]"));
 
             builder.HasKey(bh => bh.BusinessHoursId);
             builder.Property(bh => bh.BusinessHoursId).HasDefaultValueSql("NEWID()");
@@ -36,7 +36,7 @@ namespace SpinTrack.Infrastructure.Persistence.Configurations
 
             builder.HasQueryFilter(bh => !bh.IsDeleted);
 
-            builder.HasCheckConstraint("CHK_BusinessHours_Time", "[EndTime] > [StartTime]");
+            // Foreign Key configured from Company side
         }
     }
 }

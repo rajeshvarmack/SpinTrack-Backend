@@ -46,11 +46,7 @@ namespace SpinTrack.Infrastructure.Persistence.Configurations
 
             builder.HasQueryFilter(p => !p.IsDeleted);
 
-            // FK to SubModule
-            builder.HasOne<global::SpinTrack.Core.Entities.SubModule.SubModule>()
-                .WithMany()
-                .HasForeignKey(p => p.SubModuleId)
-                .OnDelete(DeleteBehavior.Cascade);
+            // Foreign key relationship configured from SubModule side
         }
     }
 }

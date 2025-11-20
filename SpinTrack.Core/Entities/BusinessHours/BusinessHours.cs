@@ -15,5 +15,8 @@ namespace SpinTrack.Core.Entities.BusinessHours
         public string? Remarks { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        // Navigation property
+        public Company.Company? Company { get; set; }
     }
 }

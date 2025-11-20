@@ -1,4 +1,5 @@
 using SpinTrack.Core.Entities.Common;
+using SpinTrack.Core.Entities.ProductVersion;
 
 namespace SpinTrack.Core.Entities.Product
 {
@@ -13,5 +14,8 @@ namespace SpinTrack.Core.Entities.Product
         public string? TechnologyStack { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        // Navigation property
+        public ICollection<SpinTrack.Core.Entities.ProductVersion.ProductVersion> ProductVersions { get; set; } = new List<SpinTrack.Core.Entities.ProductVersion.ProductVersion>();
     }
 }

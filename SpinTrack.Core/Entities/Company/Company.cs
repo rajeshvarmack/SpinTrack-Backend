@@ -1,4 +1,5 @@
 using SpinTrack.Core.Entities.Common;
+using System.Collections.Generic;
 
 namespace SpinTrack.Core.Entities.Company
 {
@@ -20,5 +21,14 @@ namespace SpinTrack.Core.Entities.Company
         public int FiscalYearStartMonth { get; set; } = 1;
 
         public bool IsDeleted { get; set; }
+
+        // Navigation properties
+        public virtual Country.Country? Country { get; set; }
+        public virtual Currency.Currency? Currency { get; set; }
+        public virtual TimeZone.TimeZoneEntity? TimeZone { get; set; }
+        public virtual DateFormat.DateFormat? DateFormat { get; set; }
+        public virtual ICollection<BusinessDay.BusinessDay> BusinessDays { get; set; } = new List<BusinessDay.BusinessDay>();
+        public virtual ICollection<BusinessHours.BusinessHour> BusinessHours { get; set; } = new List<BusinessHours.BusinessHour>();
+        public virtual ICollection<BusinessHoliday.BusinessHoliday> BusinessHolidays { get; set; } = new List<BusinessHoliday.BusinessHoliday>();
     }
 }

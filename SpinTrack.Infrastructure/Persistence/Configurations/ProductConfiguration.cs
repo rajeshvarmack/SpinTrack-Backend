@@ -34,6 +34,12 @@ namespace SpinTrack.Infrastructure.Persistence.Configurations
             builder.HasIndex(p => p.IsDeleted);
 
             builder.HasQueryFilter(p => !p.IsDeleted);
+
+            // One-to-many relationship with ProductVersions
+            builder.HasMany(p => p.ProductVersions)
+                .WithOne(pv => pv.Product)
+                .HasForeignKey(pv => pv.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

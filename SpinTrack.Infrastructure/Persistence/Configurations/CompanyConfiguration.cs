@@ -41,7 +41,43 @@ namespace SpinTrack.Infrastructure.Persistence.Configurations
 
             builder.HasQueryFilter(c => !c.IsDeleted);
 
-            // FKs will rely on existing master tables
+            // Foreign Keys with Navigation Properties
+            builder.HasOne(c => c.Country)
+                .WithMany()
+                .HasForeignKey(c => c.CountryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(c => c.Currency)
+                .WithMany()
+                .HasForeignKey(c => c.CurrencyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(c => c.TimeZone)
+                .WithMany()
+                .HasForeignKey(c => c.TimeZoneId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(c => c.DateFormat)
+                .WithMany()
+                .HasForeignKey(c => c.DateFormatId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false);
+
+            // One-to-many relationships
+            builder.HasMany(c => c.BusinessDays)
+                .WithOne(bd => bd.Company)
+                .HasForeignKey(bd => bd.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(c => c.BusinessHours)
+                .WithOne(bh => bh.Company)
+                .HasForeignKey(bh => bh.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(c => c.BusinessHolidays)
+                .WithOne(bh => bh.Company)
+                .HasForeignKey(bh => bh.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

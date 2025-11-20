@@ -15,5 +15,9 @@ namespace SpinTrack.Core.Entities.BusinessHoliday
         public TimeOnly? EndTime { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        // Navigation properties
+        public Company.Company? Company { get; set; }
+        public Country.Country? Country { get; set; }
     }
 }

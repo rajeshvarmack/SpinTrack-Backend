@@ -15,6 +15,7 @@ using SpinTrack.Core.Entities.BusinessDay;
 using SpinTrack.Core.Entities.BusinessHours;
 using SpinTrack.Core.Entities.BusinessHoliday;
 using SpinTrack.Core.Entities.Product;
+using SpinTrack.Core.Entities.ProductVersion;
 
 namespace SpinTrack.Infrastructure
 {
@@ -46,6 +47,7 @@ namespace SpinTrack.Infrastructure
         public DbSet<BusinessHour> BusinessHours => Set<BusinessHour>();
         public DbSet<BusinessHoliday> BusinessHolidays => Set<BusinessHoliday>();
         public DbSet<Product> Products => Set<Product>();
+        public DbSet<ProductVersion> ProductVersions => Set<ProductVersion>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

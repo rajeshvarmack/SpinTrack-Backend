@@ -51,6 +51,12 @@ namespace SpinTrack.Infrastructure.Persistence.Configurations
             builder.HasIndex(m => m.IsDeleted);
 
             builder.HasQueryFilter(m => !m.IsDeleted);
+
+            // One-to-many relationship with SubModules
+            builder.HasMany(m => m.SubModules)
+                .WithOne(s => s.Module)
+                .HasForeignKey(s => s.ModuleId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

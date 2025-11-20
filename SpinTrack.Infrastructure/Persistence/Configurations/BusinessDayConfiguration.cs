@@ -32,6 +32,8 @@ namespace SpinTrack.Infrastructure.Persistence.Configurations
             builder.HasIndex(bd => bd.IsDeleted);
 
             builder.HasQueryFilter(bd => !bd.IsDeleted);
+
+            // Foreign Key configured from Company side
         }
     }
 }

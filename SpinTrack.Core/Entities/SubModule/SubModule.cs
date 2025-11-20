@@ -22,5 +22,8 @@ namespace SpinTrack.Core.Entities.SubModule
         public bool IsDeleted { get; set; }
         public DateTimeOffset? DeletedAt { get; set; }
         public Guid? DeletedBy { get; set; }
+
+        // Navigation properties
+        public ICollection<Permission.Permission> Permissions { get; set; } = new List<Permission.Permission>();
     }
 }

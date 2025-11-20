@@ -46,11 +46,13 @@ namespace SpinTrack.Infrastructure.Persistence.Configurations
 
             builder.HasQueryFilter(s => !s.IsDeleted);
 
-            // Foreign key relationship to Module - use fully qualified type in HasOne overload
-            builder.HasOne<global::SpinTrack.Core.Entities.Module.Module>()
-                .WithMany()
-                .HasForeignKey(s => s.ModuleId)
+            // One-to-many relationship with Permissions
+            builder.HasMany(s => s.Permissions)
+                .WithOne(p => p.SubModule)
+                .HasForeignKey(p => p.SubModuleId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // Foreign key relationship configured from Module side
         }
     }
 }

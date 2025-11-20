@@ -17,5 +17,8 @@ namespace SpinTrack.Core.Entities.Module
         public bool IsDeleted { get; set; }
         public DateTimeOffset? DeletedAt { get; set; }
         public Guid? DeletedBy { get; set; }
+
+        // Navigation properties
+        public ICollection<SubModule.SubModule> SubModules { get; set; } = new List<SubModule.SubModule>();
     }
 }
