@@ -5,6 +5,7 @@ using SpinTrack.Core.Entities.Common;
 using SpinTrack.Core.Entities.Role;
 using SpinTrack.Core.Entities.Module;
 using SpinTrack.Core.Entities.SubModule;
+using SpinTrack.Core.Entities.Permission;
 
 namespace SpinTrack.Infrastructure
 {
@@ -26,6 +27,7 @@ namespace SpinTrack.Infrastructure
         public DbSet<Role> Roles => Set<Role>();
         public DbSet<Module> Modules => Set<Module>();
         public DbSet<SubModule> SubModules => Set<SubModule>();
+        public DbSet<Permission> Permissions => Set<Permission>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

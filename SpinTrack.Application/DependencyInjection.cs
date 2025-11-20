@@ -5,6 +5,7 @@ using SpinTrack.Application.Features.Users.Interfaces;
 using SpinTrack.Application.Features.Roles.Interfaces;
 using SpinTrack.Application.Features.Modules.Interfaces;
 using SpinTrack.Application.Features.SubModules.Interfaces;
+using SpinTrack.Application.Features.Permissions.Interfaces;
 using SpinTrack.Application.Services;
 using System.Reflection;
 
@@ -34,6 +35,9 @@ namespace SpinTrack.Application
 
             // SubModule services
             services.AddScoped<ISubModuleService, SubModuleService>();
+
+            // Permission services
+            services.AddScoped<IPermissionService, PermissionService>();
 
             return services;
         }
