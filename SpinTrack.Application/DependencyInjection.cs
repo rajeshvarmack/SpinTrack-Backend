@@ -9,6 +9,7 @@ using SpinTrack.Application.Features.Permissions.Interfaces;
 using SpinTrack.Application.Features.Countries.Interfaces;
 using SpinTrack.Application.Features.Currencies.Interfaces;
 using SpinTrack.Application.Features.TimeZones.Interfaces;
+using SpinTrack.Application.Features.DateFormats.Interfaces;
 using SpinTrack.Application.Services;
 using System.Reflection;
 
@@ -50,6 +51,9 @@ namespace SpinTrack.Application
 
             // TimeZone services
             services.AddScoped<ITimeZoneService, TimeZoneService>();
+
+            // DateFormat services
+            services.AddScoped<IDateFormatService, DateFormatService>();
 
             return services;
         }

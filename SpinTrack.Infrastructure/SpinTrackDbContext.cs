@@ -9,6 +9,7 @@ using SpinTrack.Core.Entities.Permission;
 using SpinTrack.Core.Entities.Country;
 using SpinTrack.Core.Entities.Currency;
 using SpinTrack.Core.Entities.TimeZone;
+using SpinTrack.Core.Entities.DateFormat;
 
 namespace SpinTrack.Infrastructure
 {
@@ -34,6 +35,7 @@ namespace SpinTrack.Infrastructure
         public DbSet<Country> Countries => Set<Country>();
         public DbSet<Currency> Currencies => Set<Currency>();
         public DbSet<TimeZoneEntity> TimeZones => Set<TimeZoneEntity>();
+        public DbSet<DateFormat> DateFormats => Set<DateFormat>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

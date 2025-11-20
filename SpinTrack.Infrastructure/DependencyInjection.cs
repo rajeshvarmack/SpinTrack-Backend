@@ -13,6 +13,7 @@ using SpinTrack.Application.Features.Permissions.Interfaces;
 using SpinTrack.Application.Features.Countries.Interfaces;
 using SpinTrack.Application.Features.Currencies.Interfaces;
 using SpinTrack.Application.Features.TimeZones.Interfaces;
+using SpinTrack.Application.Features.DateFormats.Interfaces;
 using SpinTrack.Infrastructure.Authentication;
 using SpinTrack.Infrastructure.Repositories;
 using SpinTrack.Infrastructure.Services;
@@ -48,6 +49,7 @@ namespace SpinTrack.Infrastructure
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ICurrencyRepository, CurrencyRepository>();
             services.AddScoped<ITimeZoneRepository, TimeZoneRepository>();
+            services.AddScoped<IDateFormatRepository, DateFormatRepository>();
 
             // Infrastructure Services (technical implementations only)
             services.AddScoped<IJwtTokenService, JwtTokenService>();
