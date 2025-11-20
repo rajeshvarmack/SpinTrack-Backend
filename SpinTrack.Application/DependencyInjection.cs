@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SpinTrack.Application.Features.Auth.Interfaces;
 using SpinTrack.Application.Features.Users.Interfaces;
 using SpinTrack.Application.Features.Roles.Interfaces;
+using SpinTrack.Application.Features.Modules.Interfaces;
 using SpinTrack.Application.Services;
 using System.Reflection;
 
@@ -26,6 +27,9 @@ namespace SpinTrack.Application
 
             // Role services
             services.AddScoped<IRoleService, RoleService>();
+
+            // Module services
+            services.AddScoped<IModuleService, ModuleService>();
 
             return services;
         }
