@@ -4,6 +4,7 @@ using SpinTrack.Core.Entities.Auth;
 using SpinTrack.Core.Entities.Common;
 using SpinTrack.Core.Entities.Role;
 using SpinTrack.Core.Entities.Module;
+using SpinTrack.Core.Entities.SubModule;
 
 namespace SpinTrack.Infrastructure
 {
@@ -24,6 +25,7 @@ namespace SpinTrack.Infrastructure
         public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
         public DbSet<Role> Roles => Set<Role>();
         public DbSet<Module> Modules => Set<Module>();
+        public DbSet<SubModule> SubModules => Set<SubModule>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -6,6 +6,9 @@ using SpinTrack.Core.Entities.Module;
 
 namespace SpinTrack.Infrastructure.Repositories
 {
+    /// <summary>
+    /// Module repository implementation using EF Core directly
+    /// </summary>
     public class ModuleRepository : IModuleRepository
     {
         private readonly SpinTrackDbContext _context;
@@ -28,8 +31,11 @@ namespace SpinTrack.Infrastructure.Repositories
         public async Task<bool> ModuleKeyExistsAsync(string moduleKey, Guid? excludeModuleId = null, CancellationToken cancellationToken = default)
         {
             var query = _context.Set<Module>().AsNoTracking().Where(m => m.ModuleKey == moduleKey);
+
             if (excludeModuleId.HasValue)
+            {
                 query = query.Where(m => m.ModuleId != excludeModuleId.Value);
+            }
 
             return await query.AnyAsync(cancellationToken);
         }
@@ -37,29 +43,49 @@ namespace SpinTrack.Infrastructure.Repositories
         public async Task<PagedResult<TResult>> QueryAsync<TResult>(QueryRequest request, Func<Module, TResult> mapper, CancellationToken cancellationToken = default)
         {
             var query = _context.Set<Module>().AsNoTracking();
+
             if (request.Filters != null && request.Filters.Any())
+            {
                 query = FilterExpressionBuilder.ApplyFilters(query, request.Filters);
+            }
 
-            var total = await query.CountAsync(cancellationToken);
+            var totalCount = await query.CountAsync(cancellationToken);
+
             if (request.SortColumns != null && request.SortColumns.Any())
+            {
                 query = ApplySorting(query, request.SortColumns);
+            }
             else
+            {
                 query = query.OrderByDescending(m => m.CreatedAt);
+            }
 
-            var items = await query.Skip((request.PageNumber - 1) * request.PageSize).Take(request.PageSize).ToListAsync(cancellationToken);
-            return new PagedResult<TResult>(items.Select(mapper).ToList(), total, request.PageNumber, request.PageSize);
+            var items = await query
+                .Skip((request.PageNumber - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .ToListAsync(cancellationToken);
+
+            var mapped = items.Select(mapper).ToList();
+            return new PagedResult<TResult>(mapped, totalCount, request.PageNumber, request.PageSize);
         }
 
         public async Task<List<TResult>> GetAllAsync<TResult>(QueryRequest request, Func<Module, TResult> mapper, CancellationToken cancellationToken = default)
         {
             var query = _context.Set<Module>().AsNoTracking();
+
             if (request.Filters != null && request.Filters.Any())
+            {
                 query = FilterExpressionBuilder.ApplyFilters(query, request.Filters);
+            }
 
             if (request.SortColumns != null && request.SortColumns.Any())
+            {
                 query = ApplySorting(query, request.SortColumns);
+            }
             else
+            {
                 query = query.OrderByDescending(m => m.CreatedAt);
+            }
 
             var items = await query.ToListAsync(cancellationToken);
             return items.Select(mapper).ToList();
@@ -87,23 +113,35 @@ namespace SpinTrack.Infrastructure.Repositories
 
         private static IQueryable<Module> ApplySorting(IQueryable<Module> query, List<SortColumn> sortColumns)
         {
-            IOrderedQueryable<Module>? ordered = null;
-            foreach (var sort in sortColumns)
+            IOrderedQueryable<Module>? orderedQuery = null;
+
+            foreach (var sortColumn in sortColumns)
             {
-                var prop = sort.ColumnName.ToLowerInvariant();
-                var desc = sort.Direction == SortDirection.Descending;
-                ordered = prop switch
+                var propertyName = sortColumn.ColumnName;
+                var isDescending = sortColumn.Direction == SortDirection.Descending;
+
+                orderedQuery = propertyName.ToLowerInvariant() switch
                 {
-                    "moduleid" => desc ? (ordered?.ThenByDescending(m => m.ModuleId) ?? query.OrderByDescending(m => m.ModuleId)) : (ordered?.ThenBy(m => m.ModuleId) ?? query.OrderBy(m => m.ModuleId)),
-                    "modulekey" => desc ? (ordered?.ThenByDescending(m => m.ModuleKey) ?? query.OrderByDescending(m => m.ModuleKey)) : (ordered?.ThenBy(m => m.ModuleKey) ?? query.OrderBy(m => m.ModuleKey)),
-                    "modulename" => desc ? (ordered?.ThenByDescending(m => m.ModuleName) ?? query.OrderByDescending(m => m.ModuleName)) : (ordered?.ThenBy(m => m.ModuleName) ?? query.OrderBy(m => m.ModuleName)),
-                    "status" => desc ? (ordered?.ThenByDescending(m => m.Status) ?? query.OrderByDescending(m => m.Status)) : (ordered?.ThenBy(m => m.Status) ?? query.OrderBy(m => m.Status)),
-                    "createdat" => desc ? (ordered?.ThenByDescending(m => m.CreatedAt) ?? query.OrderByDescending(m => m.CreatedAt)) : (ordered?.ThenBy(m => m.CreatedAt) ?? query.OrderBy(m => m.CreatedAt)),
-                    _ => ordered ?? query.OrderByDescending(m => m.CreatedAt)
+                    "moduleid" => isDescending
+                        ? (orderedQuery?.ThenByDescending(m => m.ModuleId) ?? query.OrderByDescending(m => m.ModuleId))
+                        : (orderedQuery?.ThenBy(m => m.ModuleId) ?? query.OrderBy(m => m.ModuleId)),
+                    "modulekey" => isDescending
+                        ? (orderedQuery?.ThenByDescending(m => m.ModuleKey) ?? query.OrderByDescending(m => m.ModuleKey))
+                        : (orderedQuery?.ThenBy(m => m.ModuleKey) ?? query.OrderBy(m => m.ModuleKey)),
+                    "modulename" => isDescending
+                        ? (orderedQuery?.ThenByDescending(m => m.ModuleName) ?? query.OrderByDescending(m => m.ModuleName))
+                        : (orderedQuery?.ThenBy(m => m.ModuleName) ?? query.OrderBy(m => m.ModuleName)),
+                    "status" => isDescending
+                        ? (orderedQuery?.ThenByDescending(m => m.Status) ?? query.OrderByDescending(m => m.Status))
+                        : (orderedQuery?.ThenBy(m => m.Status) ?? query.OrderBy(m => m.Status)),
+                    "createdat" => isDescending
+                        ? (orderedQuery?.ThenByDescending(m => m.CreatedAt) ?? query.OrderByDescending(m => m.CreatedAt))
+                        : (orderedQuery?.ThenBy(m => m.CreatedAt) ?? query.OrderBy(m => m.CreatedAt)),
+                    _ => orderedQuery ?? query.OrderByDescending(m => m.CreatedAt)
                 };
             }
 
-            return ordered ?? query.OrderByDescending(m => m.CreatedAt);
+            return orderedQuery ?? query.OrderByDescending(m => m.CreatedAt);
         }
     }
 }

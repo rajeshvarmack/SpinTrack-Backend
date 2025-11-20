@@ -8,6 +8,7 @@ using SpinTrack.Application.Features.Auth.Interfaces;
 using SpinTrack.Application.Features.Users.Interfaces;
 using SpinTrack.Application.Features.Roles.Interfaces;
 using SpinTrack.Application.Features.Modules.Interfaces;
+using SpinTrack.Application.Features.SubModules.Interfaces;
 using SpinTrack.Infrastructure.Authentication;
 using SpinTrack.Infrastructure.Repositories;
 using SpinTrack.Infrastructure.Services;
@@ -38,6 +39,7 @@ namespace SpinTrack.Infrastructure
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IModuleRepository, ModuleRepository>();
+            services.AddScoped<ISubModuleRepository, SubModuleRepository>();
 
             // Infrastructure Services (technical implementations only)
             services.AddScoped<IJwtTokenService, JwtTokenService>();

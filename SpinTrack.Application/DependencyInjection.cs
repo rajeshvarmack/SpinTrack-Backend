@@ -4,6 +4,7 @@ using SpinTrack.Application.Features.Auth.Interfaces;
 using SpinTrack.Application.Features.Users.Interfaces;
 using SpinTrack.Application.Features.Roles.Interfaces;
 using SpinTrack.Application.Features.Modules.Interfaces;
+using SpinTrack.Application.Features.SubModules.Interfaces;
 using SpinTrack.Application.Services;
 using System.Reflection;
 
@@ -30,6 +31,9 @@ namespace SpinTrack.Application
 
             // Module services
             services.AddScoped<IModuleService, ModuleService>();
+
+            // SubModule services
+            services.AddScoped<ISubModuleService, SubModuleService>();
 
             return services;
         }

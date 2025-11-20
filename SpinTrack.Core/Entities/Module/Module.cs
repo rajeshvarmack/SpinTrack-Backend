@@ -15,5 +15,7 @@ namespace SpinTrack.Core.Entities.Module
 
         // Soft Delete
         public bool IsDeleted { get; set; }
+        public DateTimeOffset? DeletedAt { get; set; }
+        public Guid? DeletedBy { get; set; }
     }
 }
