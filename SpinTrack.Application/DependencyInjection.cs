@@ -14,6 +14,7 @@ using SpinTrack.Application.Features.Companies.Interfaces;
 using SpinTrack.Application.Features.BusinessDays.Interfaces;
 using SpinTrack.Application.Features.BusinessHours.Interfaces;
 using SpinTrack.Application.Features.BusinessHolidays.Interfaces;
+using SpinTrack.Application.Features.Products.Interfaces;
 using SpinTrack.Application.Services;
 using System.Reflection;
 
@@ -70,6 +71,9 @@ namespace SpinTrack.Application
 
             // BusinessHoliday services
             services.AddScoped<IBusinessHolidayService, BusinessHolidayService>();
+
+            // Product services
+            services.AddScoped<IProductService, ProductService>();
 
             return services;
         }
