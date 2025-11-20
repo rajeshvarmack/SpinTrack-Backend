@@ -10,6 +10,9 @@ using SpinTrack.Application.Features.Roles.Interfaces;
 using SpinTrack.Application.Features.Modules.Interfaces;
 using SpinTrack.Application.Features.SubModules.Interfaces;
 using SpinTrack.Application.Features.Permissions.Interfaces;
+using SpinTrack.Application.Features.Countries.Interfaces;
+using SpinTrack.Application.Features.Currencies.Interfaces;
+using SpinTrack.Application.Features.TimeZones.Interfaces;
 using SpinTrack.Infrastructure.Authentication;
 using SpinTrack.Infrastructure.Repositories;
 using SpinTrack.Infrastructure.Services;
@@ -42,6 +45,9 @@ namespace SpinTrack.Infrastructure
             services.AddScoped<IModuleRepository, ModuleRepository>();
             services.AddScoped<ISubModuleRepository, SubModuleRepository>();
             services.AddScoped<IPermissionRepository, PermissionRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+            services.AddScoped<ITimeZoneRepository, TimeZoneRepository>();
 
             // Infrastructure Services (technical implementations only)
             services.AddScoped<IJwtTokenService, JwtTokenService>();

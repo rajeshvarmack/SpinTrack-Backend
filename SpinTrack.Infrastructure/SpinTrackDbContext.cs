@@ -6,6 +6,9 @@ using SpinTrack.Core.Entities.Role;
 using SpinTrack.Core.Entities.Module;
 using SpinTrack.Core.Entities.SubModule;
 using SpinTrack.Core.Entities.Permission;
+using SpinTrack.Core.Entities.Country;
+using SpinTrack.Core.Entities.Currency;
+using SpinTrack.Core.Entities.TimeZone;
 
 namespace SpinTrack.Infrastructure
 {
@@ -28,6 +31,9 @@ namespace SpinTrack.Infrastructure
         public DbSet<Module> Modules => Set<Module>();
         public DbSet<SubModule> SubModules => Set<SubModule>();
         public DbSet<Permission> Permissions => Set<Permission>();
+        public DbSet<Country> Countries => Set<Country>();
+        public DbSet<Currency> Currencies => Set<Currency>();
+        public DbSet<TimeZoneEntity> TimeZones => Set<TimeZoneEntity>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

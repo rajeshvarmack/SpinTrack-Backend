@@ -6,6 +6,9 @@ using SpinTrack.Application.Features.Roles.Interfaces;
 using SpinTrack.Application.Features.Modules.Interfaces;
 using SpinTrack.Application.Features.SubModules.Interfaces;
 using SpinTrack.Application.Features.Permissions.Interfaces;
+using SpinTrack.Application.Features.Countries.Interfaces;
+using SpinTrack.Application.Features.Currencies.Interfaces;
+using SpinTrack.Application.Features.TimeZones.Interfaces;
 using SpinTrack.Application.Services;
 using System.Reflection;
 
@@ -38,6 +41,15 @@ namespace SpinTrack.Application
 
             // Permission services
             services.AddScoped<IPermissionService, PermissionService>();
+
+            // Country services
+            services.AddScoped<ICountryService, CountryService>();
+
+            // Currency services
+            services.AddScoped<ICurrencyService, CurrencyService>();
+
+            // TimeZone services
+            services.AddScoped<ITimeZoneService, TimeZoneService>();
 
             return services;
         }
