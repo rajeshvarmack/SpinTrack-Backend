@@ -11,6 +11,8 @@ using SpinTrack.Core.Entities.Currency;
 using SpinTrack.Core.Entities.TimeZone;
 using SpinTrack.Core.Entities.DateFormat;
 using SpinTrack.Core.Entities.Company;
+using SpinTrack.Core.Entities.BusinessDay;
+using SpinTrack.Core.Entities.BusinessHours;
 
 namespace SpinTrack.Infrastructure
 {
@@ -38,6 +40,8 @@ namespace SpinTrack.Infrastructure
         public DbSet<TimeZoneEntity> TimeZones => Set<TimeZoneEntity>();
         public DbSet<DateFormat> DateFormats => Set<DateFormat>();
         public DbSet<Company> Companies => Set<Company>();
+        public DbSet<BusinessDay> BusinessDays => Set<BusinessDay>();
+        public DbSet<BusinessHour> BusinessHours => Set<BusinessHour>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

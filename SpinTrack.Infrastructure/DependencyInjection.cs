@@ -15,6 +15,8 @@ using SpinTrack.Application.Features.Currencies.Interfaces;
 using SpinTrack.Application.Features.TimeZones.Interfaces;
 using SpinTrack.Application.Features.DateFormats.Interfaces;
 using SpinTrack.Application.Features.Companies.Interfaces;
+using SpinTrack.Application.Features.BusinessDays.Interfaces;
+using SpinTrack.Application.Features.BusinessHours.Interfaces;
 using SpinTrack.Infrastructure.Authentication;
 using SpinTrack.Infrastructure.Repositories;
 using SpinTrack.Infrastructure.Services;
@@ -52,6 +54,8 @@ namespace SpinTrack.Infrastructure
             services.AddScoped<ITimeZoneRepository, TimeZoneRepository>();
             services.AddScoped<IDateFormatRepository, DateFormatRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IBusinessDayRepository, BusinessDayRepository>();
+            services.AddScoped<IBusinessHoursRepository, BusinessHoursRepository>();
 
             // Infrastructure Services (technical implementations only)
             services.AddScoped<IJwtTokenService, JwtTokenService>();

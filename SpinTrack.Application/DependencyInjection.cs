@@ -11,6 +11,7 @@ using SpinTrack.Application.Features.Currencies.Interfaces;
 using SpinTrack.Application.Features.TimeZones.Interfaces;
 using SpinTrack.Application.Features.DateFormats.Interfaces;
 using SpinTrack.Application.Features.Companies.Interfaces;
+using SpinTrack.Application.Features.BusinessDays.Interfaces;
 using SpinTrack.Application.Services;
 using System.Reflection;
 
@@ -58,6 +59,9 @@ namespace SpinTrack.Application
 
             // Company services
             services.AddScoped<ICompanyService, CompanyService>();
+
+            // BusinessDay services
+            services.AddScoped<IBusinessDayService, BusinessDayService>();
 
             return services;
         }
