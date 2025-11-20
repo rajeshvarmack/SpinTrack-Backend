@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SpinTrack.Application.Common.Interfaces;
 using SpinTrack.Core.Entities.Auth;
 using SpinTrack.Core.Entities.Common;
+using SpinTrack.Core.Entities.Role;
 
 namespace SpinTrack.Infrastructure
 {
@@ -20,6 +21,7 @@ namespace SpinTrack.Infrastructure
 
         public DbSet<User> Users => Set<User>();
         public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+        public DbSet<Role> Roles => Set<Role>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -2,6 +2,7 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using SpinTrack.Application.Features.Auth.Interfaces;
 using SpinTrack.Application.Features.Users.Interfaces;
+using SpinTrack.Application.Features.Roles.Interfaces;
 using SpinTrack.Application.Services;
 using System.Reflection;
 
@@ -22,6 +23,9 @@ namespace SpinTrack.Application
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserQueryService, UserQueryService>();
             services.AddScoped<IUserProfileService, UserProfileService>();
+
+            // Role services
+            services.AddScoped<IRoleService, RoleService>();
 
             return services;
         }
